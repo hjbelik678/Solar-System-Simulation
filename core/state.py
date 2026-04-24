@@ -94,7 +94,7 @@ DESIGN PRINCIPLES:
 
 LIMITATIONS:
 -----------
-- O(N²) gravity scaling
+- O(N^2) gravity scaling
 - no adaptive timestep
 - no relativistic corrections
 - no collision dynamics
