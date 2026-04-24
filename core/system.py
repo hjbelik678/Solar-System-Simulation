@@ -51,7 +51,7 @@ class System:
             self.names = names
         
         #mass array algined with names
-        self.masses = np.array([masses_dict[name] for names in selft.names], dtype=np.float64)
+        self.masses = np.array([masses_dict[name] for names in self.names], dtype=np.float64)
 
         #mapping: name to index
         self.index_map = { name: i for i, name in enumerate(self.names)}

@@ -152,9 +152,79 @@ indices are NOT stored explicitly; derived via mask.
 
 import numpy as np
 
-def split_bodies(masses):
+class State:
     """
-    Returns index masks for heterogeneous system.
+    Core simulation state container for N-body system.
+
+    Stores:
+    - positions
+    - velocities
+    - masses
+    - names
+
+    Designed for:
+    - symplectic integrators
+    - vectorized physics
+    - barycentric corrections
     """
-    massive = masses > 0.0
-    return massive
+
+    def __init__(self, positions, velocities, masses, names):
+        self.positions = np.array(positions, dtype=np.float64)
+        self.velocities = np.array(velocities, dtype=np.float64)
+        self.masses = np.array(masses, dtype=np.float64)
+        self.names = list(names)
+
+        self.N = self.positions.shape[0]
+
+    # ==========================================================
+    # MASS CLASSIFICATION
+    # ==========================================================
+
+    @property
+    def massive_mask(self):
+        return self.masses > 0.0
+
+    @property
+    def test_mask(self):
+        return self.masses == 0.0
+
+    @property
+    def massive_indices(self):
+        return np.where(self.massive_mask)[0]
+
+    # ==========================================================
+    # BARYCENTER CORRECTION
+    # ==========================================================
+
+    def apply_barycentric_correction(self):
+        """
+        Shifts system into center-of-mass frame.
+        """
+
+        total_mass = np.sum(self.masses)
+
+        r_cm = np.sum(self.positions * self.masses[:, None], axis=0) / total_mass
+        v_cm = np.sum(self.velocities * self.masses[:, None], axis=0) / total_mass
+
+        self.positions -= r_cm
+        self.velocities -= v_cm
+
+    # ==========================================================
+    # BASIC UTILITIES
+    # ==========================================================
+
+    def copy(self):
+        return State(
+            self.positions.copy(),
+            self.velocities.copy(),
+            self.masses.copy(),
+            self.names.copy()
+        )
+
+    def summary(self):
+        print("N-Body State")
+        print("-" * 30)
+        for i, name in enumerate(self.names):
+            print(f"{i:2d}: {name:10s} | m={self.masses[i]:.3e}")
+        print("-" * 30)
+        print(f"N = {self.N}")
