@@ -1,5 +1,11 @@
 import numpy as np
 
+# --- Config ---
+from config.constants import masses, names, generate_initial_conditions
+
+# --- State ---
+from core.state import State
+
 # --- Scenario ---
 from scenarios.solar_system import create_solar_system
 
@@ -14,60 +20,68 @@ from diagnostics.energy import compute_energy
 from diagnostics.angular_momentum import compute_angular_momentum
 
 # --- Visualization ---
-from visualization.plot_orbits import plot_results
+from visualization.plot_orbits import plot_results, plot_inner_outer
 
 # --- Settings ---
 from config.settings import dt, steps, softening
 
 
 # ==========================================================
-# INITIALIZE SCENARIO
+# INITIALIZE SYSTEM
 # ==========================================================
 
-state = create_solar_system()
+positions, velocities = generate_initial_conditions()
 
-# Ensure true barycentric frame at t=0
-state.apply_barycentric_correction()
-
-names = state.names
-
+state = State(
+    positions=positions,
+    velocities=velocities,
+    masses=masses,
+    names=names
+)
 
 # ==========================================================
 # RUN SIMULATION
 # ==========================================================
 
-history, energy, L = run_simulation(
+history, energy_history, L_history = run_simulation(
     state,
-    yoshida4_step,
+    yoshida4_step,   # pass as positional argument
     dt,
     steps,
-    softening=softening,
+    softening,
     save_interval=10,
     track_energy=compute_energy,
-    track_angular_momentum=compute_angular_momentum,
+    track_angular_momentum=compute_angular_momentum
 )
 
+history = np.asarray(history)
+energy_history = np.asarray(energy_history)
+L_history = np.asarray(L_history)
 
 # ==========================================================
-# VALIDATION
+# DIAGNOSTICS
 # ==========================================================
 
-L = np.asarray(L)
-Lz = L[:, 2]
-
+# Angular momentum error (Lz conservation check)
+Lz = L_history[:, 2]
 rel_error = (Lz - Lz[0]) / abs(Lz[0])
-print("Max angular momentum relative error:", np.max(np.abs(rel_error)))
 
+print("Max relative angular momentum error:",
+      np.max(np.abs(rel_error)))
 
 # ==========================================================
 # VISUALIZATION
 # ==========================================================
 
+# Inner + outer system view (your new feature)
+plot_inner_outer(history, names)
+
+# Optional detailed plots
 plot_results(
-    history,
-    names,
-    energy=energy,
-    angular_momentum=L,
-    show_all=True,      # all planets
-    show_sun=True,      # barycentric motion
+    history=history,
+    names=names,
+    energy=energy_history,
+    angular_momentum=L_history,
+    show_earth=True,
+    show_sun=True
 )
