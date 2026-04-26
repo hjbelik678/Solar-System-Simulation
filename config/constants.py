@@ -100,6 +100,7 @@ masses_dict = {
     "Saturn":  2.857e-4,
     "Uranus":  4.365e-5,
     "Neptune": 5.149e-5,
+    "Pluto": 6.55e-9,
 }
 
 # Order matters for simulation arrays
@@ -120,6 +121,8 @@ radii = {
     "Saturn":  9.58,
     "Uranus":  19.2,
     "Neptune": 30.05,
+    "Pluto": 39.48,
+    
 }
 
 # ==========================================================
@@ -152,6 +155,10 @@ def generate_initial_conditions():
 
         # Circular velocity magnitude
         v = np.sqrt(G / r)
+
+        #pluto
+        if name == "Pluto":
+            v = np.sqrt(G / r) * 0.9
 
         # Velocity in +y direction
         velocities[i] = [0, v, 0]

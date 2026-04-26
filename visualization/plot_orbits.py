@@ -100,3 +100,33 @@ def plot_results(
         plt.grid()
 
     plt.show()
+
+def plot_inner_outer(history, names):
+    history = np.asarray(history)
+
+    inner = ["Mercury", "Venus", "Earth", "Mars"]
+    outer = ["Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]
+
+    # --- Inner Solar System ---
+    plt.figure()
+    for name in inner:
+        i = names.index(name)
+        plt.plot(history[:, i, 0], history[:, i, 1], label=name)
+
+    plt.gca().set_aspect("equal")
+    plt.legend()
+    plt.title("Inner Solar System")
+    plt.grid()
+
+    # --- Outer Solar System ---
+    plt.figure()
+    for name in outer:
+        i = names.index(name)
+        plt.plot(history[:, i, 0], history[:, i, 1], label=name)
+
+    plt.gca().set_aspect("equal")
+    plt.legend()
+    plt.title("Outer Solar System")
+    plt.grid()
+
+    plt.show()

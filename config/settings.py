@@ -44,7 +44,7 @@ NUMERICAL SETTINGS
 dt = 0.001          # Time step (years)
                     # ~0.365 days
 
-t_end = 100         # Total simulation time (years)
+t_end = 1000         # Total simulation time (years)
 
 steps = int(t_end / dt)
 
