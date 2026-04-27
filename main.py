@@ -21,6 +21,7 @@ from diagnostics.angular_momentum import compute_angular_momentum
 
 # --- Visualization ---
 from visualization.plot_orbits import plot_results, plot_inner_outer
+from visualization.interactive_3D import plot_3d_orbits
 
 # --- Settings ---
 from config.settings import dt, steps, softening
@@ -77,11 +78,13 @@ print("Max relative angular momentum error:",
 plot_inner_outer(history, names)
 
 # Optional detailed plots
-plot_results(
+"""plot_results(
     history=history,
     names=names,
     energy=energy_history,
     angular_momentum=L_history,
     show_earth=True,
     show_sun=True
-)
+)"""
+
+plot_3d_orbits(history, names, step=20)
