@@ -52,7 +52,7 @@ All computations use a consistent astronomical unit system:
 | Distance | AU |
 | Time | years |
 | Mass | Solar masses (M☉) |
-| Gravitational constant | \( G = 4\pi^2 \) |
+| Gravitational constant | G = 4/pi^2 |
 
 ---
 
@@ -125,9 +125,7 @@ Expected behavior:
 
 Computed as:
 
-\[
-\mathbf{L} = \sum_i m_i (\mathbf{r}_i \times \mathbf{v}_i)
-\]
+L = Σ m_i (r_i × v_i)
 
 Expected:
 - Extremely stable (≈ 10⁻¹⁴ relative error observed)
@@ -174,41 +172,31 @@ Raw data:
 
 # 🧱 Project Structure
 
+## Project Structure
 
+```text
 solar_sim/
 │
 ├── main.py
 │
 ├── config/
-│ ├── constants.py # physical constants + JPL initial conditions
-│ └── settings.py # runtime configuration
+│   ├── constants.py
+│   └── settings.py
 │
 ├── core/
-│ ├── state.py # N-body state container
-│ └── system.py # body metadata utilities
+│   ├── state.py
+│   └── system.py
 │
 ├── physics/
-│ └── gravity.py # gravitational acceleration
+│   └── gravity.py
 │
 ├── integrators/
-│ ├── verlet.py # leapfrog integrator
-│ └── yoshida4.py # 4th-order symplectic integrator
+│   ├── verlet.py
+│   └── yoshida4.py
 │
-├── scenarios/
-│ └── solar_system.py # initialization logic
-│
-├── simulation/
-│ └── runner.py # main time evolution loop
-│
-├── diagnostics/
-│ ├── energy.py # energy computation
-│ └── angular_momentum.py # momentum conservation
-│
-└── visualization/
-├── plot_orbits.py # matplotlib diagnostics
-└── interactive_3d.py # Plotly-based 3D viewer
-
-
+├── visualization/
+│   └── interactive_3d.py
+```
 ---
 
 # 📈 Visualization
@@ -315,6 +303,7 @@ Ephemeris reference:
 Henry Belik  
 Physics-based numerical simulation project  
 Focus: computational astrophysics and dynamical systems
+
 Date: April 2026
 ---
 
