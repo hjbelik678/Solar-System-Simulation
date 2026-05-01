@@ -1,4 +1,4 @@
-# 🌌 Solar System N-Body Simulation (Symplectic Integrators)
+# Solar System N-Body Simulation (Symplectic Integrators)
 
 A high-precision, vectorized N-body gravitational simulation of the Solar System using symplectic integration methods and real JPL Horizons ephemeris data.
 
@@ -6,7 +6,7 @@ This project focuses on **numerical stability, long-term orbital fidelity, and p
 
 ---
 
-# 📌 Overview
+# Overview
 
 This simulator models the full Solar System as an N-body Newtonian system:
 
@@ -25,7 +25,7 @@ The system is built to explore:
 
 ---
 
-# 🧠 Physical Model
+# Physical Model
 
 ## Governing Physics
 
@@ -78,7 +78,7 @@ Two particle types:
 
 ---
 
-# 🧮 Numerical Methods
+# Numerical Methods
 
 ## Integrators
 
@@ -104,7 +104,7 @@ Unlike standard integrators:
 
 ---
 
-# 📊 Diagnostics
+# Diagnostics
 
 ## Energy Conservation
 
@@ -133,7 +133,7 @@ Expected:
 
 ---
 
-# 🌍 Initial Conditions
+# Initial Conditions
 
 ## Data Source
 
@@ -170,7 +170,7 @@ Raw data:
 
 ---
 
-# 🧱 Project Structure
+# Project Structure
 
 ## Project Structure
 
@@ -199,7 +199,7 @@ solar_sim/
 ```
 ---
 
-# 📈 Visualization
+# Visualization
 
 ## Matplotlib (diagnostics)
 Used for:
@@ -218,7 +218,7 @@ Recommended for exploration and presentation.
 
 ---
 
-# ⚙️ Simulation Configuration
+# Simulation Configuration
 
 Located in `config/settings.py`
 
@@ -231,7 +231,7 @@ Key parameters:
 
 ---
 
-# 🧪 Key Results
+# Key Results
 
 ## Verified Properties
 
@@ -251,7 +251,7 @@ Key parameters:
 
 ---
 
-# ⚠️ Known Limitations
+# Known Limitations
 
 - O(N²) gravitational complexity
 - No relativistic corrections
@@ -261,7 +261,7 @@ Key parameters:
 
 ---
 
-# 🚀 Future Improvements
+# Future Improvements
 
 ## Performance
 - Barnes–Hut O(N log N)
@@ -284,7 +284,7 @@ Key parameters:
 
 ---
 
-# 📚 Data Source
+# Data Source
 
 Initial conditions:
 
@@ -298,13 +298,13 @@ Ephemeris reference:
 
 ---
 
-# 👨‍💻 Author
+# Author
 
 Henry Belik  
 Physics-based numerical simulation project  
-Focus: computational astrophysics and dynamical systems
+computational astrophysics and dynamical systems
+April 2026
 
-Date: April 2026
 ---
 
 # 🧭 Summary
@@ -315,6 +315,3 @@ This project is a fully functional, high-precision gravitational N-body simulato
 - test numerical integrators
 - study chaos in celestial mechanics
 - provide an extensible physics research platform
-
-It is intentionally structured to scale from:
-> toy model → research-grade dynamical system simulator
