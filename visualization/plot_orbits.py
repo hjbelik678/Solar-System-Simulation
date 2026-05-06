@@ -71,19 +71,27 @@ def plot_results(
         plt.ylabel("y [AU]")
         plt.grid()
 
-    # ======================================================
+        # ======================================================
     # ENERGY
     # ======================================================
 
     if energy is not None:
         energy = np.asarray(energy)
 
+        energy_dev = energy - np.mean(energy)
+
         plt.figure()
-        plt.plot(energy)
-        plt.title("Total Energy vs Time")
+        plt.plot(energy_dev, linewidth=1)
+
+        plt.title("Energy Deviation from Mean vs Time")
         plt.xlabel("Sample Index")
-        plt.ylabel("Energy")
+        plt.ylabel("ΔE (E - ⟨E⟩)")
         plt.grid()
+
+        # Robust scaling so tiny 1e-16 variations remain visible
+        max_dev = np.max(np.abs(energy_dev))
+        if max_dev > 0:
+            plt.ylim(-10 * max_dev, 10 * max_dev)
 
     # ======================================================
     # ANGULAR MOMENTUM
@@ -92,12 +100,31 @@ def plot_results(
     if angular_momentum is not None:
         L = np.asarray(angular_momentum)
 
+        t = np.arange(len(L))
+
+        Lx = L[:, 0]
+        Ly = L[:, 1]
+        Lz = L[:, 2]
+
         plt.figure()
-        plt.plot(L[:, 2])
-        plt.title("Angular Momentum (Lz)")
+
+        plt.plot(t, Lx, label="Lx", linewidth=1)
+        plt.plot(t, Ly, label="Ly", linewidth=1)
+        plt.plot(t, Lz, label="Lz", linewidth=1)
+
+        plt.title("Angular Momentum Components vs Time")
         plt.xlabel("Sample Index")
-        plt.ylabel("Lz")
+        plt.ylabel("Angular Momentum")
         plt.grid()
+        plt.legend()
+
+        # Centered scaling around conservation value
+        L_mean = np.mean(L, axis=0)
+        L_fluct = L - L_mean
+        max_fluct = np.max(np.abs(L_fluct))
+
+        if max_fluct > 0:
+            plt.ylim(np.min(L) - 5 * max_fluct, np.max(L) + 5 * max_fluct)
 
     plt.show()
 

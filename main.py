@@ -78,13 +78,13 @@ print("Max relative angular momentum error:",
 plot_inner_outer(history, names)
 
 # Optional detailed plots
-"""plot_results(
+plot_results(
     history=history,
     names=names,
     energy=energy_history,
     angular_momentum=L_history,
-    show_earth=True,
-    show_sun=True
-)"""
+    show_earth=False,
+    show_sun=False
+)
 
-plot_3d_orbits(history, names, step=20)
+#plot_3d_orbits(history, names, step=20)
